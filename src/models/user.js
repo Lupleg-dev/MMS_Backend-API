@@ -12,6 +12,10 @@ const UserSchema = mongoose.Schema({
     email : {
         type: String,
         required: true
+    },
+    token : {
+        type: String,
+        default: ''
     }
 },{timestamps : true});
 
