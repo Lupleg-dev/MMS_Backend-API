@@ -1,11 +1,14 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const userRouter = require("./routes/userRoutes");
 
 const mongoose = require("mongoose");
 
 app.use(express.json());
+
+app.use(cors());
 
 app.use((req,res,next)=>{
     console.log("HTTP Method - " + req.method + " , URL - " + req.url);
