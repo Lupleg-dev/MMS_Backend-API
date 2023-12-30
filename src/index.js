@@ -15,7 +15,7 @@ app.use((req,res,next)=>{
     next();
 });
 
-app.use("/users",userRouter);
+app.use("/api/users",userRouter);
 
 app.get("/",(req,res)=>{
     res.send("hello");
