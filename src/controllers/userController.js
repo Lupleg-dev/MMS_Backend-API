@@ -138,4 +138,52 @@ const resetPassword = async (req, res) => {
     }
   };
 
-module.exports = { signin, signup, forgotPassword, resetPassword };
+  const updateProfile = async (req, res) => {
+    try {
+      const userId = req.userId; // Extract the user ID from the token
+      const userEmail = req.body.email; // Extract the email from the request body
+
+      // Check if the user exists
+      const existingUser = await userModel.findOne({ _id: userId, email: userEmail });
+      if (!existingUser) {
+          return res.status(404).json({ message: "User not found or email does not match" });
+      }
+
+        const data = {};
+        if (req.body.firstname) {
+            data.firstname = req.body.firstname;
+        }
+        if (req.body.lastname) {
+            data.lastname = req.body.lastname;
+        }
+        if (req.body.about) {
+            data.about = req.body.about;
+        }
+        if (req.body.website) {
+            data.website = req.body.website;
+        }
+        if (req.body.country) {
+            data.country = req.body.country;
+        }
+        if (req.body.city) {
+            data.city = req.body.city;
+        }
+
+        const updatedUser = await userModel.findByIdAndUpdate(
+            userId,
+            { $set: data },
+            { new: true } 
+        );
+        if (!updatedUser) {
+          return res.status(404).json({ message: "User not found" });
+      }
+
+        res.status(200).json({ message: "Profile updated successfully", data: updatedUser });
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ message: "Something went wrong" });
+    }
+};
+
+
+module.exports = { signin, signup, forgotPassword, resetPassword, updateProfile };
