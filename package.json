@@ -2,7 +2,7 @@
   "name": "mm_backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "start": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js"
   },
